@@ -1,8 +1,10 @@
-import { useOutletContext } from '@remix-run/react'
+import { useNavigate, useOutletContext } from '@remix-run/react'
 import React, { useState } from 'react'
+import { ACCESS_TOKEN_STORAGE_KEY } from '~/modules/shared/constants'
 
 export default function Signup() {
   const { supabase } = useOutletContext()
+  const navigate = useNavigate()
 
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -26,7 +28,8 @@ export default function Signup() {
       return error
     }
 
-    console.log(data)
+    localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, data.session.access_token)
+    navigate('/planner')
     return data
   }
 

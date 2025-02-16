@@ -1,6 +1,7 @@
 import type { MetaFunction } from '@remix-run/node'
-import { Link, useOutletContext } from '@remix-run/react'
+import { Link, useNavigate, useOutletContext } from '@remix-run/react'
 import { useState } from 'react'
+import { ACCESS_TOKEN_STORAGE_KEY } from '~/modules/shared/constants'
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,6 +12,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const { supabase } = useOutletContext()
+  const navigate = useNavigate()
+
   const [user, setUser] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -26,7 +29,9 @@ export default function Index() {
       return error
     }
 
-    console.log(data)
+    localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, data.session.access_token)
+    navigate('/planner')
+    return data
   }
   return (
     <div className='flex h-screen w-screen flex-col items-center justify-center gap-4'>
