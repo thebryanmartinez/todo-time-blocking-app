@@ -12,7 +12,8 @@
     "prettier": "npx prettier app --check",
     "prettier:fix": "npm run prettier -- --write",
     "test": "vitest",
-    "commit": "cz"
+    "commit": "cz",
+    "generate:supabase-types": "eval $(grep '^SUPABASE_PROJECT_ID' .env) && supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > ./app/modules/shared/models/supabase.ts"
   },
   "dependencies": {
     "@remix-run/node": "^2.15.3",
