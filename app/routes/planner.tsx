@@ -1,5 +1,6 @@
 import { useOutletContext } from '@remix-run/react'
 import React, { useEffect, useState } from 'react'
+import { Scheduler } from '~/modules/planner/components/Scheduler'
 import { ACCESS_TOKEN_STORAGE_KEY } from '~/modules/shared/constants'
 import { Tables } from '~/modules/shared/models'
 
@@ -43,7 +44,7 @@ export default function Planner() {
   }, [taskAdded])
 
   return (
-    <div className='flex h-screen w-screen flex-col items-center justify-center gap-4'>
+    <div className='flex h-screen w-screen justify-between gap-4'>
       <form
         className='flex flex-col gap-4'
         onSubmit={handleSubmit}
@@ -85,7 +86,7 @@ export default function Planner() {
           Add Task
         </button>
       </form>
-      <div>{JSON.stringify(tasks)}</div>
+      <Scheduler />
     </div>
   )
 }
